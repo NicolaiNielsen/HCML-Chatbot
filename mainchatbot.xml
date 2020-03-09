@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<hcml version="1.2">
+
+<!-- Velkommen -->
+
+<welcome bot_name="David Bowie">
+		Hej og velkommen til pladebutikken i skyerne. Vi har et meget eklusivt udvalg
+      af musik, så vælg med omhyg</welcome>
+
+<!-- Start samtale - musik oversigt -->
+
+<category>
+   <pattern>Hvad har i af musik?</pattern>
+      <template><srai>Hvad for noget musik har i?</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>Hvad har du af musik?</pattern>
+      <template><srai>Hvad for noget musik har i?</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>Jeg vil gerne købe noget musik</pattern>
+      <template><srai>Hvad for noget musik har i?</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>Hvad for noget musik har i?</pattern>
+      <template>Du kan købe Starman, Space Oddity eller Heroes - alle lavet af undertegnet
+      </template>
+</category>
+
+<!-- that statement til gentagelse -->
+
+<category>
+   <pattern>Hvad har i af musik?</pattern>
+      <that>Du kan købe Starman, Space Oddity eller Heroes - alle lavet af undertegnet</that>
+      <template>Søde ven, vi har diskuteret din musik. 
+      Fortæl mig i stedet, hvad din søster kan lide af musik
+   </template>
+</category>
+
+<!-- Musik valg for hovedperson -->
+
+<category>
+<pattern>Jeg vil købe *</pattern>
+   <template>
+      <think><set name="emne"><star/></set></think>
+         <condition name = "emne">
+            <li value="Space Oddity">Perfekt! Jeg lavede space oddity i 1969. Space oddity koster 30kr, skal din søster ikke også have noget musik?</li>
+            <li value="Starman">Nice valg! Skal søster ikke også have noget musik?</li>
+            <li value="Heroes">Fed sang! Den koster 30kr, skal din søster ikke også have noget musik?</li>
+            <li value="defaultListItem">Den tror jeg ikke vi har</li>
+         </condition>
+   </template>
+</category>
+
+<!-- Søster samtale -->
+
+<category>
+   <pattern>Jo</pattern>
+      <that>Perfekt! Jeg lavede space oddity i 1969. Space oddity koster 30kr, skal din søster ikke også have noget musik?</that>
+         <template>Hvad skal hun have? 
+         </template>
+</category>
+
+<category>
+   <pattern>Jo</pattern>
+      <that>Fed sang! Den koster 30kr, skal din søster ikke også have noget musik?</that>
+         <template>Hvad skal hun have? 
+         </template>
+</category>
+
+<category>
+   <pattern>Jo</pattern>
+      <that>Fed sang! Den koster 30kr, skal din søster ikke også have noget musik?</that>
+         <template>Hvad skal hun have? 
+         </template>
+</category>
+
+<category>
+   <pattern>Jo</pattern>
+      <that>Nice valg! Skal søster ikke også have noget musik?</that>
+         <template>Hvad skal hun have? 
+         </template>
+</category>
+
+<!-- Søster valgmuligheder + var -->
+
+<category>
+   <pattern>Hun skal have *</pattern>
+      <that>Hvad skal hun have?</that>
+         <template>
+            <think><set name="søstervalg"><star/></set></think>
+            <condition name = "søstervalg">
+               <li value="Space Oddity">Nice, så har vi styr på jeres odre. Hvad siger du til vi går over til kassen, kan du lige gentage, hvad du skulle have?</li>
+               <li value="Starman">Nice valg! kan du fortælle din samlede ordre igen?</li>
+               <li value="Heroes">Fed sang! kan du fortælle din samlede ordre igen?</li>
+               <li value="defaultListItem">Den tror jeg ikke vi har</li>
+         </condition>
+      </template>
+</category>
+
+
+<!-- Anvendelse af relationer // Odre opsummering -->
+
+<category>
+   <pattern>Jeg skal have * og min søster skal have *</pattern>
+         <template>Hvis jeg husker rigtigt, så skulle du have <get name="emne"/>, og din søster skulle have <get name="søstervalg"/>, er det rigtigt?
+         </template>
+</category>
+
+<category>
+   <pattern>Ja</pattern>
+      <that>Hvis jeg husker rigtigt, så skulle du have <get name="emne"/>, og din søster skulle have <get name="søstervalg"/>, er det rigtigt?</that>
+      <template>Perfekt, spørg mig lige om, hvad din sang koster - så finder jeg det på lageret!
+   </template>
+</category>
+
+<category>
+   <pattern>Hvad koster *</pattern>
+         <template>
+            <get2 name="musikpris">
+            <star index="1"/>
+            </get2>
+            . Spørg mig "Hvad med min søsters", så kan vi samlet hele ordren
+         </template>
+</category>
+
+<category>
+   <pattern>Hvad med min søsters?</pattern>
+      <that>10 kr. Spørg mig "Hvad med min søsters", så kan vi samlet hele ordren</that>
+      <template>kun fordi din koster 10kr, så kan dig og din søster få begge sange for 20kr, så får du lidt rabat. 
+   </template>
+</category>
+
+<category>
+   <pattern>Hvad med min søsters?</pattern>
+      <that>30 kr. Spørg mig "Hvad med min søsters", så kan vi samlet hele ordren</that>
+      <template>kun fordi din koster 30kr, så kan dig og din søster få begge sange for 20kr, så får du lidt rabat.  
+   </template>
+</category>
+
+
+<category>
+   <pattern>Hvad med min søsters?</pattern>
+      <that>15 kr. Spørg mig "Hvad med min søsters", så kan vi samlet hele ordren</that>
+      <template>kun fordi din koster 15kr, så kan dig og din søster få begge sange for 20kr, så får du lidt rabat. 
+   </template>
+</category>
+
+<!-- tak og afslutning -->
+
+<category>
+   <pattern>Tak</pattern>
+      <template>Det var så lidt, kom venligst ikke igen for den her samtale var sygt anstrengende. 
+   </template>
+</category>
+
+
+<!-- Default kategori -->
+
+<category>
+   <pattern>*</pattern>
+   <template>
+      <random>
+         <li>Prøv og formuler dig lidt mere præcists</li>
+         <li>Jeg er meget gammel, så formuler dig præcist og korfattett</li>
+         <li>Jeg ved dansk er vanskeligt, men kom nu</li>
+      </random>
+   </template>
+</category>
+
+<!-- Database der gemmer priserne på de forskellige sange -->
+
+<database>
+   <set2 name="musikpris">
+      <key>Starman</key> <value>30 kr</value>
+   </set2>
+   <set2 name="musikpris">
+      <key>Heroes</key> <value>10 kr</value>
+   </set2>
+   <set2 name="musikpris">
+      <key>Space Oddity</key> <value>15 kr</value>
+   </set2>
+</database>
+
+
+</hcml>
